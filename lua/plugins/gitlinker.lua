@@ -26,7 +26,7 @@ return {
       },
       mappings = "<leader>gl",
     })
-    local opts = { noremap = true, silent = true }
+    local opts = { noremap = true, silent = true, desc = "Get repo link" }
     local keymap = vim.api.nvim_set_keymap
     keymap("v", "gl", '<cmd>lua require"gitlinker".get_buf_range_url("v")<CR>', opts)
   end,

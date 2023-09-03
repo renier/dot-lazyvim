@@ -4,9 +4,49 @@ return {
     {
       "<leader>ff",
       function()
-        require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({ previewer = false }))
+        require("telescope.builtin").find_files(
+          require("telescope.themes").get_dropdown({
+            previewer = false,
+            find_command = {
+              "rg",
+              "--files",
+              "--hidden",
+              "--glob",
+              "!**/.git/*",
+            },
+          })
+        )
       end,
       desc = "Find Files",
     },
   },
+  opts = function(_, opts)
+    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+      vimgrep_arguments = {
+        "rg",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "--hidden",
+        "--glob",
+        "!**/.git/*",
+      },
+    })
+    opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
+      pickers = {
+        find_files = {
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--glob",
+            "!**/.git/*",
+          },
+        },
+      },
+    })
+  end,
 }
