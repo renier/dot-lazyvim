@@ -5,7 +5,7 @@
 local grp = vim.api.nvim_create_augroup("DynamicWinBar", { clear = true })
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = grp,
-  pattern = { "*.*" },
+  pattern = { "*.*", "*file" },
   callback = function()
     if vim.bo.filetype == "neotree" or vim.bo.filetype == "" then
       return
