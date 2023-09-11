@@ -2,6 +2,15 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds hereby
 
+local contains = function(list, item)
+  for _, v in ipairs(list) do
+    if v == item then
+      return true
+    end
+  end
+  return false
+end
+
 -- Set a sensible winbar text for buffers except when the filetype is undetermined
 -- or when the buffer is neo-tree.
 local winbargrp = vim.api.nvim_create_augroup("DynamicWinBar", { clear = true })
@@ -40,6 +49,11 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end
     if not vim.api.nvim_buf_get_option(args.buf, "modified") then
       return
+    end
+    if contains({ "go", "lua", "python", "javascript", "typescript", "rust", "java" }, vim.bo.filetype) then
+      -- autoformat doesn't seem to be happing when we write the buffer via vim.cmd
+      -- on its own as if the events that trigger it don't fire.
+      vim.lsp.buf.format({ bufnr = args.buf })
     end
     vim.cmd("silent! write")
   end,
