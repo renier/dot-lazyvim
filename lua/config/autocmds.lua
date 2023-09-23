@@ -50,3 +50,16 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     vim.cmd("silent! write")
   end,
 })
+
+-- Load filetype syntax options
+local ftoptsgrp = vim.api.nvim_create_augroup("LoadFiletypeOptions", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = ftoptsgrp,
+  pattern = { "*.*", "*file" },
+  callback = function()
+    if vim.bo.filetype == "neotree" or vim.bo.filetype == "" then
+      return
+    end
+    vim.cmd("silent! source " .. vim.env.HOME .. "/.config/nvim/after/syntax/" .. vim.bo.filetype .. ".vim")
+  end,
+})
