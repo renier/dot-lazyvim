@@ -19,33 +19,20 @@ return {
           -- I want with the options I want.
           local new_sources = {}
           for _, formatter in ipairs(opts.sources) do
-            if
-              formatter ~= nls.builtins.formatting.gofumpt and formatter ~= nls.builtins.formatting.goimports_reviser
-            then
+            if formatter ~= nls.builtins.formatting.gofumpt and formatter ~= nls.builtins.formatting.goimports then
               table.insert(new_sources, formatter)
             end
           end
           table.insert(
             new_sources,
-            nls.builtins.formatting.goimports_reviser.with({
-              -- extra_args = {
-              --   "-company-prefixes",
-              --   "code.8labs.io",
-              -- },
-              command = "gci", -- I prefer goimports-reviser, but my team is using gci.
+            nls.builtins.formatting.goimports.with({
+              args = {},
               extra_args = {
-                "write",
-                "--custom-order",
-                "--skip-generated",
-                "-s",
-                "standard",
-                "-s",
-                "default",
-                "-s",
-                "prefix(github.com/secureworks)",
-                "-s",
-                "prefix(code.8labs.io)",
+                "-local",
+                "code.8labs.io",
+                "$FILENAME",
               },
+              to_stdin = false,
             })
           )
           opts.sources = new_sources
@@ -87,11 +74,12 @@ return {
               lostcancel = false,
               nilness = true,
             },
-            usePlaceholders = true,
+            usePlaceholders = false,
             completeUnimported = true,
             staticcheck = true,
             directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
             semanticTokens = true,
+            completionBudget = "200ms",
           },
         },
       },
