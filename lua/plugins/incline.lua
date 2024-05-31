@@ -9,8 +9,8 @@ local render = function(props)
   local function get_git_diff()
     local icons = {
       [1] = { name = "added", icon = " " },
-      [2] = { name = "removed", icon = " " },
-      [3] = { name = "changed", icon = " " },
+      [2] = { name = "changed", icon = " " },
+      [3] = { name = "removed", icon = " " },
     }
     local signs = vim.b[props.buf].gitsigns_status_dict
     local labels = {}
@@ -47,6 +47,12 @@ return {
         margin = {
           horizontal = 0,
           vertical = 0,
+        },
+        overlap = {
+          borders = true,
+          statusline = false,
+          tabline = false,
+          winbar = true,
         },
       },
     })

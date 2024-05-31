@@ -7,7 +7,7 @@ return {
     }
     opts.format = {
       timeout_ms = 750,
-      lsp_fallback = false,
+      lsp_fallback = true,
     }
   end,
 }
