@@ -5,11 +5,13 @@ return {
       lua = { "stylua" },
       go = { "goimports" },
       graphql = { "prettier" },
+      json = { "jq" },
+      yaml = { "yamlfmt" },
     }
     opts.formatters.goimports = {
       prepend_args = { "-local", "code.8labs.io" },
     }
-    opts.format = {
+    opts.default_format_opts = {
       timeout_ms = 750,
       lsp_fallback = true,
     }
