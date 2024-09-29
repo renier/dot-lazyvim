@@ -17,5 +17,13 @@ return {
         conflict = "",
       },
     }
+    opts.filesystem = {
+      filtered_items = {
+        visible = false,
+        hide_dotfiles = false,
+        hide_gitignored = true,
+        hide_hidden = false,
+      },
+    }
   end,
 }
