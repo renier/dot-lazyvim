@@ -21,7 +21,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     if vim.bo.filetype == "neotree" or vim.bo.filetype == "" then
       return
     end
-    vim.wo.winbar = "%=%m %f"
+    local filename = vim.fn.expand("%:~:.:h") .. "/" .. vim.fn.expand("%:t")
+    filename = filename:gsub("^%./", "")
+    vim.wo.winbar = "%=%m " .. filename
   end,
 })
 
