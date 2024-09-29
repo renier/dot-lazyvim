@@ -3,6 +3,10 @@ local util = require("lspconfig/util")
 
 return {
   "neovim/nvim-lspconfig",
+  init = function()
+    local keys = require("lazyvim.plugins.lsp.keymaps").get()
+    keys[#keys + 1] = { "gr", "<cmd>Telescope lsp_references jump_type=never<cr>" }
+  end,
   dependencies = {
     {
       "jose-elias-alvarez/null-ls.nvim",
