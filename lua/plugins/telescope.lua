@@ -4,20 +4,27 @@ return {
     {
       "<leader>ff",
       function()
-        require("telescope.builtin").find_files(
-          require("telescope.themes").get_dropdown({
-            previewer = false,
-            find_command = {
-              "rg",
-              "--files",
-              "--hidden",
-              "--glob",
-              "!**/.git/*",
-            },
-          })
-        )
+        require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
+          previewer = false,
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--glob",
+            "!**/.git/*",
+          },
+        }))
       end,
       desc = "Find Files",
+    },
+    {
+      "<leader>fb",
+      function()
+        require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
+          previewer = false,
+        }))
+      end,
+      desc = "Find Buffers",
     },
   },
   opts = function(_, opts)
