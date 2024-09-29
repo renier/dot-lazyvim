@@ -10,18 +10,41 @@ return {
         opts.debug = true
         if type(opts.sources) == "table" then
           local nls = require("null-ls")
-          vim.list_extend(opts.sources, {
-            nls.builtins.formatting.gofmt,
+          -- LazyVim adds gofumpt and goimports_reviser by default to the sources.
+          -- I remove these foramtters from the sources here, so that I can add only the formatters
+          -- I want with the options I want.
+          local new_sources = {}
+          for _, formatter in ipairs(opts.sources) do
+            if
+              formatter ~= nls.builtins.formatting.gofumpt and formatter ~= nls.builtins.formatting.goimports_reviser
+            then
+              table.insert(new_sources, formatter)
+            end
+          end
+          table.insert(
+            new_sources,
             nls.builtins.formatting.goimports_reviser.with({
-              generator_opts = {
-                args = {
-                  "-company-prefixes",
-                  "code.8labs.io",
-                  "$FILENAME",
-                },
+              -- extra_args = {
+              --   "-company-prefixes",
+              --   "code.8labs.io",
+              -- },
+              command = "gci", -- I prefer goimports-reviser, but my team is using gci.
+              extra_args = {
+                "write",
+                "--custom-order",
+                "--skip-generated",
+                "-s",
+                "standard",
+                "-s",
+                "default",
+                "-s",
+                "prefix(github.com/secureworks)",
+                "-s",
+                "prefix(code.8labs.io)",
               },
-            }),
-          })
+            })
+          )
+          opts.sources = new_sources
         end
 
         opts.on_attach = function(client, bufnr)
