@@ -13,19 +13,20 @@ end
 
 -- Set a sensible winbar text for buffers except when the filetype is undetermined
 -- or when the buffer is neo-tree.
-local winbargrp = vim.api.nvim_create_augroup("DynamicWinBar", { clear = true })
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = winbargrp,
-  pattern = { "*.*", "*file" },
-  callback = function()
-    if vim.bo.filetype == "neotree" or vim.bo.filetype == "" then
-      return
-    end
-    local filename = vim.fn.expand("%:~:.:h") .. "/" .. vim.fn.expand("%:t")
-    filename = filename:gsub("^%./", "")
-    vim.wo.winbar = "%=%m " .. filename
-  end,
-})
+-- (commented for now; using b0o/incline.nvim for this instead)
+-- local winbargrp = vim.api.nvim_create_augroup("DynamicWinBar", { clear = true })
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+--   group = winbargrp,
+--   pattern = { "*.*", "*file" },
+--   callback = function()
+--     if vim.bo.filetype == "neotree" or vim.bo.filetype == "" then
+--       return
+--     end
+--     local filename = vim.fn.expand("%:~:.:h") .. "/" .. vim.fn.expand("%:t")
+--     filename = filename:gsub("^%./", "")
+--     vim.wo.winbar = "%=%m " .. filename
+--   end,
+-- })
 
 -- AutoSave buffers when leaving insert mode
 local savegrp = vim.api.nvim_create_augroup("AutoSave", { clear = true })
