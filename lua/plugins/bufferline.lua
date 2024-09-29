@@ -1,6 +1,8 @@
 return {
   "akinsho/bufferline.nvim",
+  enabled = false,
   opts = function(_, opts)
+    -- opts.options.separator_style = "thin"
     opts.options.separator_style = "slant"
     opts.options.offsets = {
       {

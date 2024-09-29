@@ -6,8 +6,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      -- colorscheme = "terafox",
-      colorscheme = "nightfox",
+      colorscheme = "terafox",
+      -- colorscheme = "nightfox",
       -- colorscheme = "carbonfox",
     },
   },

@@ -1,10 +1,9 @@
-local devicons = require("nvim-web-devicons")
-
 local render = function(props)
   local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
   if filename == "" then
     filename = "[No Name]"
   end
+  local devicons = require("nvim-web-devicons")
   local ft_icon, ft_color = devicons.get_icon_color(filename)
 
   local function get_git_diff()
@@ -71,7 +70,7 @@ end
 return {
   "b0o/incline.nvim",
   name = "incline",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { "nvim-tree/nvim-web-devicons", lazy = false },
   config = function()
     require("incline").setup({
       render = render,
