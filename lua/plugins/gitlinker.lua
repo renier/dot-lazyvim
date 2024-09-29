@@ -1,6 +1,5 @@
 return {
   "ruifm/gitlinker.nvim",
-  event = "BufEnter",
   cond = function()
     local f = io.open(".git", "r")
     if f ~= nil then
@@ -10,6 +9,20 @@ return {
       return false
     end
   end,
+  keys = {
+    {
+      "gl",
+      '<cmd>lua require"gitlinker".get_buf_range_url("v", {}, {})<CR>',
+      mode = "v",
+      desc = "Get repo link",
+    },
+    {
+      "<leader>gl",
+      '<cmd>lua require"gitlinker".get_buf_range_url("n", {}, {silent=true})<CR>',
+      mode = "n",
+      desc = "Get repo link",
+    },
+  },
   dependencies = "nvim-lua/plenary.nvim",
   config = function()
     require("gitlinker").setup({
@@ -26,8 +39,5 @@ return {
       },
       mappings = "<leader>gl",
     })
-    local opts = { noremap = true, silent = true, desc = "Get repo link" }
-    local keymap = vim.api.nvim_set_keymap
-    keymap("v", "gl", '<cmd>lua require"gitlinker".get_buf_range_url("v")<CR>', opts)
   end,
 }

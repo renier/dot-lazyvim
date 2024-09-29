@@ -4,3 +4,5 @@
 vim.opt.timeoutlen = 300
 vim.opt.wrap = true
 vim.opt.swapfile = false
+vim.opt.winbar = nil
+vim.g.lazygit_config = false

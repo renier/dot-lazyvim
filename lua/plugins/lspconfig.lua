@@ -7,6 +7,7 @@ return {
     keys[#keys + 1] = { "gr", "<cmd>Telescope lsp_references jump_type=never<cr>" }
   end,
   opts = {
+    inlay_hints = { enabled = false },
     servers = {
       gopls = {
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -29,10 +30,39 @@ return {
             staticcheck = true,
             directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
             semanticTokens = true,
-            completionBudget = "200ms",
+            completionBudget = "1000ms",
             ["formatting.local"] = "code.8labs.io",
           },
         },
+        before_init = function(_, config)
+          if vim.fn.executable("go") ~= 1 then
+            return
+          end
+
+          local module = vim.fn.trim(vim.fn.system("go list -m | head -1 | cut -d '/' -f 1-2"))
+          if vim.v.shell_error ~= 0 then
+            return
+          end
+          module = module:gsub("\n", ",")
+
+          if module ~= "^code.8labs.io" then
+            config.settings.gopls["formatting.local"] = "code.8labs.io"
+          else
+            config.settings.gopls["formatting.local"] = module
+          end
+        end,
+      },
+    },
+    yaml = {
+      schemas = {
+        kubernetes = "charts/**/templates/*.yaml",
+        ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+        ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+        ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+        ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+        ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+        ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+        ["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
       },
     },
   },

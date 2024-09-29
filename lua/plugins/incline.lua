@@ -1,4 +1,5 @@
 local devicons = require("nvim-web-devicons")
+
 local render = function(props)
   local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
   if filename == "" then
@@ -30,16 +31,47 @@ local render = function(props)
     return labels
   end
 
+  local function get_diagnostic_label()
+    local icons = {
+      error = LazyVim.config.icons.diagnostics.Error,
+      warn = LazyVim.config.icons.diagnostics.Warn,
+      info = LazyVim.config.icons.diagnostics.Info,
+      hint = LazyVim.config.icons.diagnostics.Hint,
+    }
+    local label = {}
+
+    for severity, icon in pairs(icons) do
+      local n = #vim.diagnostic.get(props.buf, { severity = vim.diagnostic.severity[string.upper(severity)] })
+      if n > 0 then
+        table.insert(label, { icon .. n .. " ", group = "DiagnosticSign" .. severity })
+      end
+    end
+    -- if #label > 0 then
+    table.insert(label, { "┊ " })
+    -- end
+    return label
+  end
+
   return {
-    { get_git_diff() },
-    { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" },
-    { filename .. " ", gui = vim.bo[props.buf].modified and "bold,italic" or "bold" },
+    { get_diagnostic_label() },
+    -- { get_git_diff() },
+    {
+      (ft_icon or "") .. " ",
+      guifg = ft_color,
+      guibg = "none",
+    },
+    {
+      (vim.bo[props.buf].modified and "⁜" or "") .. filename,
+      gui = vim.bo[props.buf].modified and "bold,italic" or "bold",
+    },
     -- { "┊  " .. vim.api.nvim_win_get_number(props.win), group = "DevIconWindows" },
   }
 end
 
 return {
   "b0o/incline.nvim",
+  name = "incline",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     require("incline").setup({
       render = render,
