@@ -9,7 +9,7 @@ return {
   end,
   dependencies = {
     {
-      "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim",
       opts = function(_, opts)
         opts.debug = true
         if type(opts.sources) == "table" then

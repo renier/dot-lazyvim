@@ -1,5 +1,11 @@
 return {
   "nvim-telescope/telescope.nvim",
+  init = function()
+    local mappings = require("telescope.mappings")
+    local actions = require("telescope.actions")
+    mappings.default_mappings["i"]["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist
+    mappings.default_mappings["n"]["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist
+  end,
   keys = {
     {
       "<leader>ff",
