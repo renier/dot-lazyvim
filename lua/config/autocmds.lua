@@ -27,16 +27,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
--- Always assume Edit Always if there is a swap file for the opened file.
-local swapgrp = vim.api.nvim_create_augroup("SwapChoice", { clear = true })
-vim.api.nvim_create_autocmd("SwapExists", {
-  group = swapgrp,
-  pattern = { "*" },
-  callback = function()
-    vim.swapchoice = "e"
-  end,
-})
-
 -- AutoSave buffers when leaving insert mode
 local savegrp = vim.api.nvim_create_augroup("AutoSave", { clear = true })
 vim.api.nvim_create_autocmd("InsertLeave", {

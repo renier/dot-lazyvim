@@ -3,4 +3,4 @@
 -- Add any additional options here
 vim.opt.timeoutlen = 300
 vim.opt.wrap = true
-vim.swapchoice = "e"
+vim.opt.swapfile = false
