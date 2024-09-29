@@ -30,6 +30,7 @@ return {
             directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
             semanticTokens = true,
             completionBudget = "200ms",
+            ["formatting.local"] = "code.8labs.io",
           },
         },
       },
