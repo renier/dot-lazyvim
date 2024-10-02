@@ -43,11 +43,12 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     if not vim.api.nvim_buf_get_option(args.buf, "modified") then
       return
     end
-    if contains({ "go", "lua", "python", "javascript", "typescript", "rust", "java" }, vim.bo.filetype) then
-      -- autoformat doesn't seem to be happing when we write the buffer via vim.cmd
-      -- on its own as if the events that trigger it don't fire.
-      vim.lsp.buf.format({ bufnr = args.buf })
-    end
+    -- if contains({ "go", "lua", "python", "javascript", "typescript", "rust", "java" }, vim.bo.filetype) then
+    -- autoformat doesn't seem to be happing when we write the buffer via vim.cmd
+    -- on its own as if the events that trigger it don't fire.
+    -- vim.lsp.buf.format({ bufnr = args.buf })
+    require("conform").format({ bufnr = args.buf })
+    -- end
     vim.cmd("silent! write")
   end,
 })
