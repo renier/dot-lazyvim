@@ -3,10 +3,15 @@ return {
   lazy = true,
   event = "BufEnter",
   cond = function()
-    local f = io.open(".git", "r")
-    if f ~= nil then
-      io.close(f)
-      return true
+    local handle = io.popen("git rev-parse --is-inside-work-tree")
+    if handle ~= nil then
+      local result = handle:read("*a")
+      result = result:gsub("[\n\r]+", "")
+      if result == "true" then
+        return true
+      else
+        return false
+      end
     else
       return false
     end
