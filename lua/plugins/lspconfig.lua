@@ -20,7 +20,7 @@ return {
         root_dir = util.root_pattern("go.work", "go.mod", ".git"),
         settings = {
           gopls = {
-            buildFlags = { "-tags=integration" },
+            buildFlags = { "-tags=integration,no_duckdb_arrow" },
             gofumpt = false,
             analyses = {
               fieldalignment = false,

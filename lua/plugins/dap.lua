@@ -8,7 +8,7 @@ return {
     ft = "go",
     opts = function(_, opts)
       opts.delve = {
-        build_flags = "-tags=integration",
+        build_flags = { "-tags=integration,no_duckdb_arrow" },
         -- build_flags = "-ldflags=-linkmode=internal",
       }
       opts.tests = { verbose = true }
