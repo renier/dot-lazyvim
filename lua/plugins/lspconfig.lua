@@ -59,6 +59,11 @@ return {
           end
         end,
       },
+      starpls = {
+        cmd = { "/opt/homebrew/bin/starpls" },
+        filetypes = { "starlark" },
+        root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+      },
     },
     yaml = {
       schemas = {

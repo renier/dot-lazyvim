@@ -29,29 +29,29 @@ end
 -- })
 
 -- AutoSave buffers when leaving insert mode
-local savegrp = vim.api.nvim_create_augroup("AutoSave", { clear = true })
-vim.api.nvim_create_autocmd("InsertLeave", {
-  group = savegrp,
-  pattern = { "*" },
-  callback = function(args)
-    if vim.fn.getbufvar(args.buf, "&modifiable") ~= 1 then
-      return
-    end
-    if vim.bo.filetype == "" or vim.bo.filetype == "neotree" then
-      return
-    end
-    if not vim.api.nvim_buf_get_option(args.buf, "modified") then
-      return
-    end
-    -- if contains({ "go", "lua", "python", "javascript", "typescript", "rust", "java" }, vim.bo.filetype) then
-    -- autoformat doesn't seem to be happing when we write the buffer via vim.cmd
-    -- on its own as if the events that trigger it don't fire.
-    -- vim.lsp.buf.format({ bufnr = args.buf })
-    require("conform").format({ bufnr = args.buf })
-    -- end
-    vim.cmd("silent! write")
-  end,
-})
+-- local savegrp = vim.api.nvim_create_augroup("AutoSave", { clear = true })
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+--   group = savegrp,
+--   pattern = { "*" },
+--   callback = function(args)
+--     if vim.fn.getbufvar(args.buf, "&modifiable") ~= 1 then
+--       return
+--     end
+--     if vim.bo.filetype == "" or vim.bo.filetype == "neotree" then
+--       return
+--     end
+--     if not vim.api.nvim_buf_get_option(args.buf, "modified") then
+--       return
+--     end
+--     -- if contains({ "go", "lua", "python", "javascript", "typescript", "rust", "java" }, vim.bo.filetype) then
+--     -- autoformat doesn't seem to be happing when we write the buffer via vim.cmd
+--     -- on its own as if the events that trigger it don't fire.
+--     -- vim.lsp.buf.format({ bufnr = args.buf })
+--     require("conform").format({ bufnr = args.buf })
+--     -- end
+--     vim.cmd("silent! write")
+--   end,
+-- })
 
 -- Load filetype syntax options
 local ftoptsgrp = vim.api.nvim_create_augroup("LoadFiletypeOptions", { clear = true })
