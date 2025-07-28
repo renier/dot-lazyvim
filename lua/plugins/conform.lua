@@ -22,7 +22,7 @@ return {
         prepend_args = { "--cache" },
       }
       opts.default_format_opts = {
-        timeout_ms = 750,
+        timeout_ms = 2000,
         lsp_fallback = true,
       }
     end,

@@ -1,10 +1,8 @@
 return {
   "olexsmir/gopher.nvim",
   ft = "go",
-  config = function(_, opts)
-    require("gopher").setup(opts)
-  end,
+  opts = { timeout = 3000 },
   build = function()
-    vim.cmd([[silent! GoInstallDeps]])
+    vim.cmd.GoInstallDeps()
   end,
 }
