@@ -3,7 +3,7 @@ return {
   lazy = true,
   event = "BufEnter",
   cond = function()
-    local handle = io.popen("git rev-parse --is-inside-work-tree")
+    local handle = io.popen("git rev-parse --is-inside-work-tree 2>/dev/null")
     if handle ~= nil then
       local result = handle:read("*a")
       result = result:gsub("[\n\r]+", "")

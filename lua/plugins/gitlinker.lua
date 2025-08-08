@@ -1,7 +1,7 @@
 return {
   "ruifm/gitlinker.nvim",
   cond = function()
-    local handle = io.popen("git rev-parse --is-inside-work-tree")
+    local handle = io.popen("git rev-parse --is-inside-work-tree 2>/dev/null")
     if handle ~= nil then
       local output = handle:read("*a")
       local result = output:gsub("[\n\r]", "")
