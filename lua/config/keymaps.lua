@@ -7,6 +7,11 @@ vim.keymap.set(
   require("telescope.builtin").resume,
   { remap = false, silent = true, desc = "Resume" }
 )
+
+vim.keymap.set("n", "<leader>gt", function()
+  vim.fn.system("/Applications/kitty.app/Contents/MacOS/kitten quick-access-terminal --detach=yes")
+end, { remap = false, silent = true, desc = "Quick Terminal" })
+
 -- gitlab keybindings
 -- local gitlab = require("gitlab")
 -- vim.keymap.set("n", "<leader>gbr", gitlab.review, { desc = "Gitlab Review" })
