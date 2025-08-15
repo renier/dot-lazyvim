@@ -36,5 +36,6 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = "nvim-treesitter/nvim-treesitter",
     ft = { "go", "lua", "python", "javascript", "typescript", "rust", "cpp", "c", "java" },
+    opts = { enabled = true },
   },
 }
