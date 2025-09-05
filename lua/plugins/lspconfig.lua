@@ -5,7 +5,8 @@ return {
   init = function()
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     keys[#keys + 1] = { "gr", "<cmd>Telescope lsp_references jump_type=never<cr>" }
-    keys[#keys + 1] = { "<leader>ss", "<cmd>Telescope lsp_document_symbols symbol_width=80<cr>" }
+    keys[#keys + 1] =
+      { "<leader>ss", "<cmd>Telescope lsp_document_symbols symbol_width=80<cr>", desc = "Document Symbols" }
   end,
   opts = {
     codelens = { enabled = true },
