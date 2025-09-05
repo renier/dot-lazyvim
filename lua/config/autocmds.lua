@@ -13,20 +13,51 @@ end
 
 -- Set a sensible winbar text for buffers except when the filetype is undetermined
 -- or when the buffer is neo-tree.
--- (commented for now; using b0o/incline.nvim for this instead)
 -- local winbargrp = vim.api.nvim_create_augroup("DynamicWinBar", { clear = true })
--- vim.api.nvim_create_autocmd("BufWinEnter", {
---   group = winbargrp,
---   pattern = { "*.*", "*file" },
---   callback = function()
---     if vim.bo.filetype == "neotree" or vim.bo.filetype == "" then
---       return
---     end
---     local filename = vim.fn.expand("%:~:.:h") .. "/" .. vim.fn.expand("%:t")
---     filename = filename:gsub("^%./", "")
---     vim.wo.winbar = "%=%m " .. filename
---   end,
--- })
+-- vim.api.nvim_create_autocmd(
+--   { "DirChanged", "CursorMoved", "BufWinEnter", "BuffFilePost", "InsertEnter", "BufWritePost" },
+--   {
+--     group = winbargrp,
+--     pattern = { "*.*", "*file", "*rc" },
+--     callback = function(props)
+--       local function get_diagnostic_label(obj)
+--         local icons = {
+--           error = LazyVim.config.icons.diagnostics.Error,
+--           warn = LazyVim.config.icons.diagnostics.Warn,
+--           info = LazyVim.config.icons.diagnostics.Info,
+--           hint = LazyVim.config.icons.diagnostics.Hint,
+--         }
+--         local label = {}
+--
+--         for severity, icon in pairs(icons) do
+--           local n = #vim.diagnostic.get(obj.buf, { severity = vim.diagnostic.severity[string.upper(severity)] })
+--           if n > 0 then
+--             table.insert(label, { icon .. n .. " ", group = "DiagnosticSign" .. severity })
+--           end
+--         end
+--         -- if #label > 0 then
+--         table.insert(label, { "┊ " })
+--         -- end
+--         print(table.concat(label, " "))
+--         return table.concat(label, " ")
+--       end
+--
+--       if vim.bo.filetype == "neotree" or vim.bo.filetype == "" then
+--         return
+--       end
+--       local filename = vim.fn.fnamemodify(props.file, ":.")
+--       local devicons = require("nvim-web-devicons")
+--       local ft_icon, _ = devicons.get_icon_color(filename)
+--       local value = "%=%m "
+--         .. get_diagnostic_label(props)
+--         .. (ft_icon or "")
+--         .. " "
+--         .. (vim.bo[props.buf].modified and "⁜" or "")
+--         .. filename
+--       pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
+--     end,
+--   }
+-- )
 
 -- AutoSave buffers when leaving insert mode
 -- local savegrp = vim.api.nvim_create_augroup("AutoSave", { clear = true })

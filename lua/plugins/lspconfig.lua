@@ -8,6 +8,7 @@ return {
     keys[#keys + 1] = { "<leader>ss", "<cmd>Telescope lsp_document_symbols symbol_width=80<cr>" }
   end,
   opts = {
+    codelens = { enabled = true },
     inlay_hints = { enabled = false },
     setup = {
       rust_analyzer = function()
@@ -22,6 +23,14 @@ return {
           gopls = {
             buildFlags = { "-tags=integration,no_duckdb_arrow" },
             gofumpt = false,
+            codelenses = {
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = false,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = false,
+            },
             analyses = {
               fieldalignment = false,
               unusedparams = false,
@@ -37,7 +46,7 @@ return {
             staticcheck = true,
             directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
             semanticTokens = true,
-            completionBudget = "1000ms",
+            completionBudget = "2000ms",
             ["formatting.local"] = "code.8labs.io",
           },
         },

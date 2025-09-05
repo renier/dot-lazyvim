@@ -1,5 +1,5 @@
 local render = function(props)
-  local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+  local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":.")
   if filename == "" then
     filename = "[No Name]"
   end
@@ -70,6 +70,7 @@ end
 return {
   "b0o/incline.nvim",
   name = "incline",
+  enable = true,
   dependencies = { "nvim-tree/nvim-web-devicons", lazy = false },
   config = function()
     require("incline").setup({
@@ -80,10 +81,10 @@ return {
           vertical = 0,
         },
         overlap = {
-          borders = true,
+          borders = false,
           statusline = false,
           tabline = false,
-          winbar = true,
+          winbar = false,
         },
       },
     })
