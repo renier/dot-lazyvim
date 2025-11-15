@@ -11,6 +11,7 @@ return {
         terraform = { "terraform_fmt" },
         rust = { "rustfmt" },
         proto = { "buf" },
+        python = { "autopep8", "ruff" },
       }
       opts.formatters.goimports = {
         prepend_args = { "-local", "code.8labs.io" },
@@ -22,7 +23,7 @@ return {
         prepend_args = { "--cache" },
       }
       opts.default_format_opts = {
-        timeout_ms = 2000,
+        timeout_ms = 5000,
         lsp_fallback = true,
       }
     end,
