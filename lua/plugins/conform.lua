@@ -11,7 +11,7 @@ return {
         terraform = { "terraform_fmt" },
         rust = { "rustfmt" },
         proto = { "buf" },
-        python = { "autopep8", "ruff" },
+        python = { "black" },
       }
       opts.formatters.goimports = {
         prepend_args = { "-local", "code.8labs.io" },

@@ -15,7 +15,7 @@ require("lazy").setup({
       import = "lazyvim.plugins",
       opts = {
         icons = {
-          git = { removed = " ", modified = " ", added = " " },
+          git = { removed = "−", modified = "±", added = "+" },
         },
       },
     },
