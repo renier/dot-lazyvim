@@ -11,16 +11,20 @@ return {
         terraform = { "terraform_fmt" },
         rust = { "rustfmt" },
         proto = { "buf" },
-        python = { "black" },
+        python = { "ruff" },
       }
       opts.formatters.goimports = {
         prepend_args = { "-local", "code.8labs.io" },
       }
       opts.formatters.yamlfmt = {
-        prepend_args = { "-conf", "/Users/rmorales/.yamlfmt" },
+        prepend_args = { "-conf", os.getenv("HOME") .. "/.yamlfmt" },
       }
       opts.formatters.prettier = {
         prepend_args = { "--cache" },
+      }
+      opts.formatters.ruff = {
+        command = "uv",
+        prepend_args = { "tool", "run", "ruff" },
       }
       opts.default_format_opts = {
         timeout_ms = 5000,

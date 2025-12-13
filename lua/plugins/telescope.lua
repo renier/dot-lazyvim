@@ -47,17 +47,17 @@ return {
         "--glob",
         "!**/.git/*",
       },
+      prompt_prefix = "⟩ ",
+      selection_caret = "⟩ ",
     })
     opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
-      pickers = {
-        find_files = {
-          find_command = {
-            "rg",
-            "--files",
-            "--hidden",
-            "--glob",
-            "!**/.git/*",
-          },
+      find_files = {
+        find_command = {
+          "rg",
+          "--files",
+          "--hidden",
+          "--glob",
+          "!**/.git/*",
         },
       },
     })

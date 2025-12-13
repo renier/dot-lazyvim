@@ -17,7 +17,7 @@ return {
     vim.g.rustaceanvim = {
       server = {
         cmd = function()
-          return { "/Users/rmorales/.cargo/bin/rust-analyzer" }
+          return { os.getenv("HOME") .. "/.cargo/bin/rust-analyzer" }
         end,
       },
       dap = {
