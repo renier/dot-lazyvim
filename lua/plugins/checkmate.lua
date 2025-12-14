@@ -1,5 +1,11 @@
 return {
   "bngarren/checkmate.nvim",
   ft = "markdown",
-  opts = {},
+  opts = {
+    todo_states = {
+      unchecked = {
+        marker = "▢",
+      },
+    },
+  },
 }
