@@ -2,6 +2,15 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds hereby
 
+local startup_augroup = vim.api.nvim_create_augroup("LazyVimStartupCommands", { clear = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = startup_augroup,
+  callback = function()
+    -- For transparency
+    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+  end,
+})
+
 local contains = function(list, item)
   for _, v in ipairs(list) do
     if v == item then
