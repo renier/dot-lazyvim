@@ -24,11 +24,11 @@ return {
       }
       opts.formatters.ruff = {
         command = "uv",
-        prepend_args = { "tool", "run", "ruff" },
+        prepend_args = { "run", "ruff" },
       }
       opts.default_format_opts = {
         timeout_ms = 5000,
-        lsp_fallback = true,
+        lsp_format = "fallback",
       }
     end,
   },

@@ -6,14 +6,10 @@ return {
     local handle = io.popen("git rev-parse --is-inside-work-tree 2>/dev/null")
     if handle ~= nil then
       local result = handle:read("*a")
+      handle:close()
       result = result:gsub("[\n\r]+", "")
-      if result == "true" then
-        return true
-      else
-        return false
-      end
-    else
-      return false
+      return result == "true"
     end
+    return false
   end,
 }

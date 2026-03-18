@@ -11,8 +11,8 @@ return {
     else
       extension_path = vim.fs.joinpath(vim.fn.expand("$MASON"), "packages", codelldb.name, "extension")
     end
-    local codelldb_path = extension_path .. "adapter/codelldb"
-    local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+    local codelldb_path = extension_path .. "/adapter/codelldb"
+    local liblldb_path = extension_path .. "/lldb/lib/liblldb.dylib"
     local cfg = require("rustaceanvim.config")
     vim.g.rustaceanvim = {
       server = {

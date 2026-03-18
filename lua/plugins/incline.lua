@@ -45,9 +45,9 @@ local render = function(props)
         table.insert(label, { icon .. n .. " ", group = "DiagnosticSign" .. severity })
       end
     end
-    -- if #label > 0 then
-    table.insert(label, { "┊ " })
-    -- end
+    if #label > 0 then
+      table.insert(label, { "┊ " })
+    end
     return label
   end
 
@@ -70,7 +70,7 @@ end
 return {
   "b0o/incline.nvim",
   name = "incline",
-  enable = true,
+  enabled = true,
   dependencies = { "nvim-tree/nvim-web-devicons", lazy = false },
   config = function()
     require("incline").setup({
