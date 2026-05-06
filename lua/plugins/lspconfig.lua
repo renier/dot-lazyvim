@@ -1,13 +1,23 @@
 return {
   "neovim/nvim-lspconfig",
-  init = function()
-    local keys = require("lazyvim.plugins.lsp.keymaps").get()
-    keys[#keys + 1] = { "gr", "<cmd>Telescope lsp_references jump_type=never<cr>" }
-    keys[#keys + 1] =
-      { "<leader>ss", "<cmd>Telescope lsp_document_symbols symbol_width=80<cr>", desc = "Document Symbols" }
-  end,
   opts = function(_, opts)
     local util = require("lspconfig/util")
+
+    local function chart_root(fname)
+      return util.root_pattern("Chart.yaml")(fname)
+    end
+
+    local function yamlls_root_dir(fname)
+      if chart_root(fname) then
+        return nil
+      end
+
+      return util.root_pattern(".git")(fname) or vim.fs.dirname(fname)
+    end
+
+    local function helm_ls_root_dir(fname)
+      return chart_root(fname)
+    end
 
     opts.codelens = { enabled = true }
     opts.inlay_hints = { enabled = false }
@@ -16,6 +26,20 @@ return {
       return true
     end
     opts.servers = opts.servers or {}
+    opts.servers["*"] = opts.servers["*"] or {}
+    opts.servers["*"].keys = opts.servers["*"].keys or {}
+    opts.servers["*"].keys[#opts.servers["*"].keys + 1] = {
+      "gr",
+      "<cmd>Telescope lsp_references jump_type=never<cr>",
+      desc = "References",
+      nowait = true,
+    }
+    opts.servers["*"].keys[#opts.servers["*"].keys + 1] = {
+      "<leader>ss",
+      "<cmd>Telescope lsp_document_symbols symbol_width=80<cr>",
+      desc = "Document Symbols",
+      has = "documentSymbol",
+    }
     opts.servers.gopls = {
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
       root_dir = util.root_pattern("go.work", "go.mod", ".git"),
@@ -73,7 +97,22 @@ return {
       filetypes = { "starlark" },
       root_dir = util.root_pattern("go.work", "go.mod", ".git"),
     }
+    opts.servers.helm_ls = {
+      filetypes = { "helm", "yaml", "yaml.helm-values" },
+      root_dir = helm_ls_root_dir,
+      single_file_support = false,
+      settings = {
+        ["helm-ls"] = {
+          yamlls = {
+            path = "yaml-language-server",
+          },
+        },
+      },
+    }
     opts.servers.yamlls = {
+      filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+      root_dir = yamlls_root_dir,
+      single_file_support = false,
       settings = {
         yaml = {
           schemas = {

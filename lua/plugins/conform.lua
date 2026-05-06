@@ -23,8 +23,7 @@ return {
         prepend_args = { "--cache" },
       }
       opts.formatters.ruff = {
-        command = "uv",
-        prepend_args = { "run", "ruff" },
+        command = "ruff",
       }
       opts.default_format_opts = {
         timeout_ms = 5000,

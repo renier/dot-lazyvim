@@ -4,7 +4,6 @@ return {
   config = function()
     require("crates").setup({
       completion = {
-        cmp = { enabled = false },
         blink = { use_custom_kind = true },
       },
       lsp = {

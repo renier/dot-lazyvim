@@ -14,6 +14,9 @@ return {
 
 
     ]]
+    opts = opts or {}
+    opts.config = opts.config or {}
     opts.config.header = vim.split(logo, "\n")
+    return opts
   end,
 }

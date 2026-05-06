@@ -1,6 +1,6 @@
 return {
   { "RRethy/vim-illuminate", enabled = false },
-  { "ggandor/leap.nvim",     enabled = false },
-  { "ggandor/flit.nvim",     enabled = false },
-  { "folke/flash.nvim",      enabled = false },
+  { url = "https://codeberg.org/andyg/leap.nvim.git", enabled = false },
+  { "flit.nvim", enabled = false },
+  { "folke/flash.nvim", enabled = false },
 }
