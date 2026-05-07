@@ -1,22 +1,12 @@
 return {
   "neovim/nvim-lspconfig",
   opts = function(_, opts)
-    local util = require("lspconfig/util")
+    local function find_root(fname, markers)
+      return vim.fs.root(fname, markers)
+    end
 
     local function chart_root(fname)
-      return util.root_pattern("Chart.yaml")(fname)
-    end
-
-    local function yamlls_root_dir(fname)
-      if chart_root(fname) then
-        return nil
-      end
-
-      return util.root_pattern(".git")(fname) or vim.fs.dirname(fname)
-    end
-
-    local function helm_ls_root_dir(fname)
-      return chart_root(fname)
+      return find_root(fname, { "Chart.yaml" })
     end
 
     opts.codelens = { enabled = true }
@@ -33,6 +23,7 @@ return {
       "<cmd>Telescope lsp_references jump_type=never<cr>",
       desc = "References",
       nowait = true,
+      has = "references",
     }
     opts.servers["*"].keys[#opts.servers["*"].keys + 1] = {
       "<leader>ss",
@@ -42,7 +33,7 @@ return {
     }
     opts.servers.gopls = {
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+      root_markers = { "go.work", "go.mod", ".git" },
       settings = {
         gopls = {
           buildFlags = { "-tags=integration,no_duckdb_arrow" },
@@ -92,14 +83,22 @@ return {
         end
       end,
     }
-    opts.servers.starpls = {
-      cmd = { "/opt/homebrew/bin/starpls" },
-      filetypes = { "starlark" },
-      root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-    }
+    if vim.fn.executable("/opt/homebrew/bin/starpls") == 1 then
+      opts.servers.starpls = {
+        cmd = { "/opt/homebrew/bin/starpls" },
+        filetypes = { "starlark" },
+        root_markers = { "go.work", "go.mod", ".git" },
+      }
+    end
     opts.servers.helm_ls = {
       filetypes = { "helm", "yaml", "yaml.helm-values" },
-      root_dir = helm_ls_root_dir,
+      root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        local root = chart_root(fname)
+        if root then
+          on_dir(root)
+        end
+      end,
       single_file_support = false,
       settings = {
         ["helm-ls"] = {
@@ -111,7 +110,13 @@ return {
     }
     opts.servers.yamlls = {
       filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
-      root_dir = yamlls_root_dir,
+      root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        if chart_root(fname) then
+          return
+        end
+        on_dir(find_root(fname, { ".git" }) or vim.fs.dirname(fname))
+      end,
       single_file_support = false,
       settings = {
         yaml = {
