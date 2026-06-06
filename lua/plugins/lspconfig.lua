@@ -34,6 +34,9 @@ return {
     opts.servers.gopls = {
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
       root_markers = { "go.work", "go.mod", ".git" },
+      init_options = {
+        semanticTokens = true,
+      },
       settings = {
         gopls = {
           buildFlags = { "-tags=integration,no_duckdb_arrow" },
@@ -60,7 +63,6 @@ return {
           completeUnimported = true,
           staticcheck = true,
           directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-          semanticTokens = true,
           completionBudget = "2000ms",
           ["formatting.local"] = "code.8labs.io",
         },

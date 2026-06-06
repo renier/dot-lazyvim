@@ -12,6 +12,7 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     {
       "LazyVim/LazyVim",
+      commit = "b830a523b5973c300639d4d9c4fea7d92fa04dc3",
       import = "lazyvim.plugins",
       opts = {
         icons = {
