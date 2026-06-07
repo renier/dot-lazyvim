@@ -4,6 +4,19 @@ return {
   opts = {
     -- add any options here
     cli = {
+      win = {
+        wo = {
+          winhighlight = table.concat({
+            "Normal:Normal",
+            "NormalNC:Normal",
+            "NormalFloat:Normal",
+            "EndOfBuffer:Normal",
+            "SignColumn:Normal",
+            "FloatBorder:FloatBorder",
+            "FloatTitle:FloatTitle",
+          }, ","),
+        },
+      },
       mux = {
         backend = "tmux",
         enabled = false,
