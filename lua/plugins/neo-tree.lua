@@ -26,11 +26,23 @@ return {
       },
     },
     filesystem = {
+      components = {
+        name = function(config, node, state)
+          local result = require("neo-tree.sources.common.components").name(config, node, state)
+          if node:get_depth() == 1 then
+            result.text = vim.fn.fnamemodify(node.path, ":t")
+          end
+          return result
+        end,
+      },
       filtered_items = {
         visible = false,
         hide_dotfiles = false,
         hide_gitignored = true,
         hide_hidden = false,
+        never_show = {
+          ".git",
+        },
       },
       follow_current_file = {
         enabled = true,
