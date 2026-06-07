@@ -31,22 +31,37 @@ return {
     end,
   },
   {
-    "neanias/everforest-nvim",
+    "sainnhe/everforest",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Optionally configure and load the colorscheme
+      -- directly inside the plugin declaration.
+      vim.g.everforest_enable_italic = true
+      vim.g.everforest_background = "soft"
+      vim.g.everforest_transparent_background = true
+    end,
+  },
+  {
+    "craftzdog/solarized-osaka.nvim",
+    version = false,
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "morhetz/gruvbox",
     version = false,
     lazy = false,
     priority = 1000,
     config = function()
-      require("everforest").setup({
-        background = "hard",
-        transparent_background_level = 0,
-        ui_contrast = "high",
-      })
+      vim.g.gruvbox_transparent_bg = true
     end,
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "nightfox",
+      colorscheme = "gruvbox",
     },
   },
 }
