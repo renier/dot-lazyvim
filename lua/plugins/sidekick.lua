@@ -1,28 +1,38 @@
 return {
   "folke/sidekick.nvim",
   -- cmd = "Sidekick",
-  opts = {
-    -- add any options here
-    cli = {
-      win = {
-        wo = {
-          winhighlight = table.concat({
-            "Normal:Normal",
-            "NormalNC:Normal",
-            "NormalFloat:Normal",
-            "EndOfBuffer:Normal",
-            "SignColumn:Normal",
-            "FloatBorder:FloatBorder",
-            "FloatTitle:FloatTitle",
-          }, ","),
+  opts = function()
+    return {
+      -- add any options here
+      cli = {
+        win = {
+          split = {
+            width = math.floor(vim.o.columns * 0.4),
+          },
+          wo = {
+            winhighlight = table.concat({
+              "Normal:Normal",
+              "NormalNC:Normal",
+              "NormalFloat:Normal",
+              "EndOfBuffer:Normal",
+              "SignColumn:Normal",
+              "FloatBorder:FloatBorder",
+              "FloatTitle:FloatTitle",
+            }, ","),
+          },
+        },
+        mux = {
+          backend = "tmux",
+          enabled = false,
+        },
+        tools = {
+          claude = {
+            cmd = { "claude", "--dangerously-skip-permissions" },
+          },
         },
       },
-      mux = {
-        backend = "tmux",
-        enabled = false,
-      },
-    },
-  },
+    }
+  end,
   keys = {
     {
       "<tab>",
