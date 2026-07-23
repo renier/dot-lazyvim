@@ -92,17 +92,21 @@ return {
         root_markers = { "go.work", "go.mod", ".git" },
       }
     end
-    local function use_project_venv(_, config)
-      local root = config.root_dir or vim.fn.getcwd()
-      local venv = root .. "/.venv/bin/python"
-      if vim.fn.executable(venv) == 1 then
-        config.settings = config.settings or {}
-        config.settings.python = config.settings.python or {}
-        config.settings.python.pythonPath = venv
-      end
-    end
-    opts.servers.pyright = { before_init = use_project_venv }
-    opts.servers.basedpyright = { before_init = use_project_venv, mason = false }
+    -- local function use_project_venv(_, config)
+    --   local root = config.root_dir or vim.fn.getcwd()
+    --   local venv = root .. "/.venv/bin/python"
+    --   if vim.fn.executable(venv) == 1 then
+    --     config.settings = config.settings or {}
+    --     config.settings.python = config.settings.python or {}
+    --     config.settings.python.pythonPath = venv
+    --   end
+    -- end
+    -- opts.servers.pyright = { before_init = use_project_venv }
+    -- opts.servers.basedpyright = { before_init = use_project_venv, mason = false }
+    opts.servers.ty = {
+      mason = false,
+      cmd = { "/Users/renier/.local/bin/ty", "server" },
+    }
     opts.servers.helm_ls = {
       filetypes = { "helm", "yaml", "yaml.helm-values" },
       root_dir = function(bufnr, on_dir)

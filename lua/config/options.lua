@@ -6,4 +6,5 @@ vim.opt.wrap = true
 vim.opt.swapfile = false
 vim.opt.winbar = nil
 vim.g.lazygit_config = false
+vim.g.lazyvim_python_lsp = "ty"
 vim.cmd("setlocal nolist")
