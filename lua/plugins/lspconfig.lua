@@ -105,7 +105,7 @@ return {
     -- opts.servers.basedpyright = { before_init = use_project_venv, mason = false }
     opts.servers.ty = {
       mason = false,
-      cmd = { "/Users/renier/.local/bin/ty", "server" },
+      cmd = { vim.loop.os_homedir() .. "/.local/bin/ty", "server" },
     }
     opts.servers.helm_ls = {
       filetypes = { "helm", "yaml", "yaml.helm-values" },
@@ -150,5 +150,8 @@ return {
         },
       },
     }
+    -- Disables ruff automatic installation from Mason
+    opts.servers.ruff = nil
+    opts.setup["ruff"] = nil
   end,
 }

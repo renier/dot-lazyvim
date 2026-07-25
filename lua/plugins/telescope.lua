@@ -12,6 +12,7 @@ return {
       function()
         require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
           previewer = false,
+          cwd = vim.fn.getcwd(),
           find_command = {
             "rg",
             "--files",
@@ -21,7 +22,23 @@ return {
           },
         }))
       end,
-      desc = "Find Files",
+      desc = "Find Files (cwd)",
+    },
+    {
+      "<leader>fF",
+      function()
+        require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
+          previewer = false,
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--glob",
+            "!**/.git/*",
+          },
+        }))
+      end,
+      desc = "Find Files (root)",
     },
     {
       "<leader>fb",
@@ -32,6 +49,8 @@ return {
       end,
       desc = "Find Buffers",
     },
+    { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
+    { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
   },
   opts = function(_, opts)
     opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
