@@ -20,6 +20,9 @@ return {
             "--glob",
             "!**/.git/*",
           },
+          layout_config = {
+            width = 0.8,
+          },
         }))
       end,
       desc = "Find Files (cwd)",
@@ -36,6 +39,9 @@ return {
             "--glob",
             "!**/.git/*",
           },
+          layout_config = {
+            width = 0.8,
+          },
         }))
       end,
       desc = "Find Files (root)",
@@ -45,12 +51,26 @@ return {
       function()
         require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
           previewer = false,
+          layout_config = {
+            width = 0.8,
+          },
         }))
       end,
       desc = "Find Buffers",
     },
-    { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
-    { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
+    {
+      "<leader>sg",
+      LazyVim.pick(
+        "live_grep",
+        { root = false, layout_config = { width = 0.90, horizontal = { preview_width = 0.5 } } }
+      ),
+      desc = "Grep (cwd)",
+    },
+    {
+      "<leader>sG",
+      LazyVim.pick("live_grep", { layout_config = { width = 0.90, horizontal = { preview_width = 0.5 } } }),
+      desc = "Grep (Root Dir)",
+    },
   },
   opts = function(_, opts)
     opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {

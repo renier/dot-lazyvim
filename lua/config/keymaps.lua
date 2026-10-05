@@ -12,6 +12,8 @@ vim.keymap.set("n", "<leader>gt", function()
   vim.fn.system("/Applications/kitty.app/Contents/MacOS/kitten quick-access-terminal --detach=yes")
 end, { remap = false, silent = true, desc = "Quick Terminal" })
 
+vim.keymap.set("n", "<leader>cc", ':let @+ = expand("%")<CR>', { desc = "Copy relative path" })
+
 -- gitlab keybindings
 -- local gitlab = require("gitlab")
 -- vim.keymap.set("n", "<leader>gbr", gitlab.review, { desc = "Gitlab Review" })
