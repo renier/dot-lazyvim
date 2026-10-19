@@ -56,6 +56,8 @@ return {
     priority = 1000,
     config = function()
       vim.g.gruvbox_transparent_bg = true
+      vim.g.gruvbox_contrast_light = "soft"
+      vim.g.gruvbox_contrast_dark = "soft"
     end,
   },
   {

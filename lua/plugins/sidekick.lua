@@ -27,7 +27,7 @@ return {
         },
         tools = {
           claude = {
-            cmd = { "claude", "--dangerously-skip-permissions" },
+            cmd = { "claude", "--permission-mode", "auto" },
           },
         },
       },
