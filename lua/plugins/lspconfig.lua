@@ -33,7 +33,7 @@ return {
     }
     opts.servers.gopls = {
       cmd = { vim.loop.os_homedir() .. "/.local/bin/gopls" },
-      filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      filetypes = { "go", "gomod", "gowork" },
       root_markers = { "go.work", "go.mod", ".git" },
       init_options = {
         semanticTokens = true,
